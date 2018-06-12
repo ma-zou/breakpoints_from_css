@@ -4,7 +4,7 @@ breakpoint.getBreakpoints = (function () {
     breakpoints = new Array()
     for (i = 0; i < bps.length; i++) {
         temp = bps[i].split(':');
-        breakpoints[temp[0]] = "(min-width: " + temp[1] + ")";
+        breakpoints[temp[0]] = temp[1];
     }
     return breakpoints
 })()
@@ -14,7 +14,8 @@ breakpoint.match = (function () {
 })()
 function setBreakpointValue() {
     for (key in breakpoint.getBreakpoints) {
-        breakpoint[key] = window.matchMedia(breakpoint.getBreakpoints[key]).matches;
+        breakpoint[key].min = window.matchMedia("(min-width: " + breakpoint.getBreakpoints[key] + ")").matches;
+        breakpoint[key].max = window.matchMedia("(max-width: " + breakpoint.getBreakpoints[key] + ")").matches;
     }
 }
 
