@@ -1,11 +1,13 @@
+
 breakpoint = new Array();
 breakpoint.getBreakpoints = (function () {
-    bps = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '').split('....');
-    breakpoints = new Array()
+    var bps = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '').split('....');
+    var breakpoints = new Array()
     for (i = 0; i < bps.length; i++) {
-        temp = bps[i].split(':');
+        var temp = bps[i].split(':');
         breakpoints[temp[0]] = temp[1];
     }
+    breakpoints.bfs = window.getComputedStyle(document.querySelector('html')).getPropertyValue('font-size');
     return breakpoints
 })()
 breakpoint.match = (function () {
@@ -14,15 +16,10 @@ breakpoint.match = (function () {
 })()
 function setBreakpointValue() {
     for (key in breakpoint.getBreakpoints) {
-        breakpoint[key].min = window.matchMedia("(min-width: " + breakpoint.getBreakpoints[key] + ")").matches;
-        breakpoint[key].max = window.matchMedia("(max-width: " + breakpoint.getBreakpoints[key] + ")").matches;
+        if (key != "bfs") {
+            breakpoint[key] = new Array();
+            breakpoint[key].min = window.matchMedia("(min-width: " + breakpoint.getBreakpoints[key] + ")").matches;
+            breakpoint[key].max = window.matchMedia("(max-width: " + breakpoint.getBreakpoints[key] + ")").matches;
+        }
     }
 }
-
-window.addEventListener('resize', function () {
-    if (breakpoint["medium"]) {
-        document.getElementById("wrapper").style.background = "#000";
-    } else {
-        document.getElementById("wrapper").style.background = "#fff";
-    }
-});
