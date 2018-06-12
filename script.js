@@ -7,7 +7,6 @@ breakpoint.getBreakpoints = (function () {
         var temp = bps[i].split(':');
         breakpoints[temp[0]] = temp[1];
     }
-    breakpoints.bfs = window.getComputedStyle(document.querySelector('html')).getPropertyValue('font-size');
     return breakpoints
 })()
 breakpoint.match = (function () {
@@ -16,10 +15,8 @@ breakpoint.match = (function () {
 })()
 function setBreakpointValue() {
     for (key in breakpoint.getBreakpoints) {
-        if (key != "bfs") {
-            breakpoint[key] = new Array();
-            breakpoint[key].min = window.matchMedia("(min-width: " + breakpoint.getBreakpoints[key] + ")").matches;
-            breakpoint[key].max = window.matchMedia("(max-width: " + breakpoint.getBreakpoints[key] + ")").matches;
-        }
+        breakpoint[key] = new Array();
+        breakpoint[key].min = window.matchMedia("(min-width: " + breakpoint.getBreakpoints[key] + ")").matches;
+        breakpoint[key].max = window.matchMedia("(max-width: " + breakpoint.getBreakpoints[key] + ")").matches;
     }
 }
