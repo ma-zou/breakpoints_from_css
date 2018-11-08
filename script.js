@@ -1,8 +1,8 @@
 
-breakpoint = new Array();
+var breakpoint = new Array();
 breakpoint.getBreakpoints = (function () {
     var bps = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '').split('....');
-    var breakpoints = new Array()
+    var breakpoints = new Array();
     for (i = 0; i < bps.length; i++) {
         var temp = bps[i].split(':');
         breakpoints[temp[0]] = temp[1];
