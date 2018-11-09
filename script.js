@@ -1,22 +1,16 @@
 
-var breakpoint = new Array();
-breakpoint.getBreakpoints = (function () {
+window.breakpoint = function (width, direction) {
     var bps = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '').split('....');
     var breakpoints = new Array();
     for (i = 0; i < bps.length; i++) {
         var temp = bps[i].split(':');
         breakpoints[temp[0]] = temp[1];
     }
-    return breakpoints
-})()
-breakpoint.match = (function () {
-    setBreakpointValue();
-    window.addEventListener('resize', setBreakpointValue);
-})()
-function setBreakpointValue() {
-    for (key in breakpoint.getBreakpoints) {
-        breakpoint[key] = new Array();
-        breakpoint[key].min = window.matchMedia("(min-width: " + breakpoint.getBreakpoints[key] + ")").matches;
-        breakpoint[key].max = window.matchMedia("(max-width: " + breakpoint.getBreakpoints[key] + ")").matches;
+    direction = (typeof direction === 'undefined') ? 'min' : direction;
+    if(typeof width === 'undefined') {
+        return breakpoints
+    } else {
+        if (direction === 'min') return window.matchMedia("(min-width: " + breakpoints[width] + ")").matches;
+        else return window.matchMedia("(max-width: " + breakpoint[width] + ")").matches
     }
 }
