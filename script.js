@@ -11,6 +11,6 @@ window.breakpoint = function (width, direction) {
         return breakpoints
     } else {
         if (direction === 'min') return window.matchMedia("(min-width: " + breakpoints[width] + ")").matches;
-        else return window.matchMedia("(max-width: " + breakpoint[width] + ")").matches
+        else return window.matchMedia("(max-width: " + breakpoints[width] + ")").matches
     }
 }
